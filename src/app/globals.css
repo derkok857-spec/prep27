@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --color-canvas: #f6f6f3;
+  --color-surface: #ffffff;
+  --color-sunken: #f0f0eb;
+  --color-line: #e3e3dc;
+  --color-line-strong: #cfcfc6;
+  --color-ink: #1b1b19;
+  --color-ink-2: #4a4a44;
+  --color-ink-3: #7b7b72;
+  --color-accent: #3451d1;
+  --color-accent-strong: #2a43b3;
+  --color-accent-soft: #e9edfc;
+  --color-on-accent: #ffffff;
+  --color-good: #2b8a3e;
+  --color-good-soft: #e5f3e8;
+  --color-mid: #c77c02;
+  --color-mid-soft: #fcf1da;
+  --color-bad: #d6336c;
+  --color-bad-soft: #fbe7ee;
+  --color-none: #d4d4cc;
+  --color-cell-good: #40a05a;
+  --color-cell-mid: #e3a535;
+  --color-cell-bad: #e0607e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-canvas: #111110;
+    --color-surface: #1a1a18;
+    --color-sunken: #222220;
+    --color-line: #2d2d2a;
+    --color-line-strong: #3b3b37;
+    --color-ink: #eeeeea;
+    --color-ink-2: #bcbcb4;
+    --color-ink-3: #8a8a81;
+    --color-accent: #8197f5;
+    --color-accent-strong: #9aacf8;
+    --color-accent-soft: #1d2445;
+    --color-on-accent: #0d1020;
+    --color-good: #63c97a;
+    --color-good-soft: #15291b;
+    --color-mid: #f0b54a;
+    --color-mid-soft: #2e2512;
+    --color-bad: #f27aa0;
+    --color-bad-soft: #33161f;
+    --color-none: #3a3a36;
+    --color-cell-good: #3f9a57;
+    --color-cell-mid: #c99130;
+    --color-cell-bad: #c85574;
+  }
+}
+
+html {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--color-canvas);
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: var(--color-accent-soft);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Keyboard focus that is visible on every surface */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+dialog::backdrop {
+  background: rgb(10 10 10 / 0.45);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toast-in {
+  animation: toast-in 160ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast-in {
+    animation: none;
+  }
+}
