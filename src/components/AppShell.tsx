@@ -183,7 +183,7 @@ function Chrome({ children }: { children: ReactNode }) {
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col gap-5 border-r border-line bg-canvas px-3 py-5 md:flex">
         <Link href="/" className="flex items-center gap-2 px-2">
           <Logo className="h-7 w-7" />
-          <span className="text-[17px] font-semibold tracking-tight">Prep27</span>
+          <span className="ui-brand text-[17px] font-semibold tracking-tight">Prep27</span>
         </Link>
         <nav aria-label="Main">{navList(false)}</nav>
         {footer}

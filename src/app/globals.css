@@ -4,61 +4,37 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
-  --color-canvas: #f6f6f3;
-  --color-surface: #ffffff;
-  --color-sunken: #f0f0eb;
-  --color-line: #e3e3dc;
-  --color-line-strong: #cfcfc6;
-  --color-ink: #1b1b19;
-  --color-ink-2: #4a4a44;
-  --color-ink-3: #7b7b72;
-  --color-accent: #3451d1;
-  --color-accent-strong: #2a43b3;
-  --color-accent-soft: #e9edfc;
-  --color-on-accent: #ffffff;
-  --color-good: #2b8a3e;
-  --color-good-soft: #e5f3e8;
-  --color-mid: #c77c02;
-  --color-mid-soft: #fcf1da;
-  --color-bad: #d6336c;
-  --color-bad-soft: #fbe7ee;
-  --color-none: #d4d4cc;
-  --color-cell-good: #40a05a;
-  --color-cell-mid: #e3a535;
-  --color-cell-bad: #e0607e;
-}
+  --font-serif: "Newsreader Variable", Georgia, "Times New Roman", serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-canvas: #111110;
-    --color-surface: #1a1a18;
-    --color-sunken: #222220;
-    --color-line: #2d2d2a;
-    --color-line-strong: #3b3b37;
-    --color-ink: #eeeeea;
-    --color-ink-2: #bcbcb4;
-    --color-ink-3: #8a8a81;
-    --color-accent: #8197f5;
-    --color-accent-strong: #9aacf8;
-    --color-accent-soft: #1d2445;
-    --color-on-accent: #0d1020;
-    --color-good: #63c97a;
-    --color-good-soft: #15291b;
-    --color-mid: #f0b54a;
-    --color-mid-soft: #2e2512;
-    --color-bad: #f27aa0;
-    --color-bad-soft: #33161f;
-    --color-none: #3a3a36;
-    --color-cell-good: #3f9a57;
-    --color-cell-mid: #c99130;
-    --color-cell-bad: #c85574;
-  }
+  /* Editorial palette: paper, ink and a claret accent */
+  --color-canvas: #fbf6ee;
+  --color-surface: #fffdf9;
+  --color-sunken: #f3ece0;
+  --color-line: #e7dccb;
+  --color-line-strong: #d2c4ad;
+  --color-ink: #1d1a16;
+  --color-ink-2: #4b443b;
+  --color-ink-3: #83786a;
+  --color-accent: #9b1c3a;
+  --color-accent-strong: #7f1530;
+  --color-accent-soft: #f5e2e5;
+  --color-on-accent: #ffffff;
+  --color-good: #2f6b3f;
+  --color-good-soft: #e7f0e4;
+  --color-mid: #a8640a;
+  --color-mid-soft: #f8ecd6;
+  --color-bad: #b3261e;
+  --color-bad-soft: #f8e3df;
+  --color-none: #e2d9ca;
+  --color-cell-good: #5c8f66;
+  --color-cell-mid: #d4a24a;
+  --color-cell-bad: #c45a52;
 }
 
 html {
   background: var(--color-canvas);
   color: var(--color-ink);
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 body {
@@ -105,4 +81,84 @@ dialog::backdrop {
   .toast-in {
     animation: none;
   }
+}
+
+/* ---------- Editorial typography ----------
+   Serif for titles and the numbers that matter, sans for everything you read in passing. */
+:is(.ui-h1, .ui-hero, .ui-brand, .ui-stat-value, .ui-card-title) {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
+.ui-h1 {
+  font-size: 2.6rem;
+  font-weight: 500;
+  line-height: 1.05;
+}
+.ui-hero {
+  font-size: 3.1rem;
+  font-weight: 500;
+  line-height: 1.04;
+}
+.ui-brand {
+  font-weight: 600;
+}
+.ui-pagehead {
+  margin-bottom: 1.75rem;
+}
+.ui-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+.ui-card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.ui-card-sub {
+  font-style: italic;
+}
+:is(.ui-card, .ui-stat) {
+  border-radius: 3px;
+}
+.ui-stat {
+  border-width: 0;
+  border-top: 3px solid var(--color-ink);
+  background: transparent;
+  padding-left: 0;
+  border-radius: 0;
+}
+.ui-stat-label {
+  letter-spacing: 0.1em;
+  font-size: 11px;
+}
+.ui-stat-value {
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1.1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.ui-btn {
+  border-radius: 3px;
+}
+@media (max-width: 640px) {
+  .ui-h1 {
+    font-size: 2.1rem;
+  }
+  .ui-hero {
+    font-size: 2.4rem;
+  }
+  .ui-stat-value {
+    font-size: 2.3rem;
+  }
+}
+
+/* Plain cards read as newspaper sections: a rule on top, no box. Tinted cards keep their box. */
+.ui-card-plain {
+  background: transparent;
+  border-width: 1px 0 0 0;
+  border-color: var(--color-ink);
+  border-radius: 0;
+  padding: 0.9rem 0 0 0;
 }

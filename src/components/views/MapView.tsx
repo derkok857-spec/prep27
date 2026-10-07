@@ -20,7 +20,7 @@ export function MapView() {
     <div className="space-y-5">
       <PageHeader
         title="Knowledge map"
-        sub="Every module of the curriculum. Topics are sized by exam weight, modules by study hours. Click a module to open it."
+        sub="Sized by exam weight, colored by what you know"
         action={
           <Segmented<ColorMode>
             label="Color by"
@@ -44,7 +44,10 @@ export function MapView() {
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
         <Card className="lg:col-span-3">
-          <CardTitle sub={`Readiness ${pct(derived.readiness)}, the exam weighted share of the curriculum you can back with evidence`}>
+          <CardTitle
+            sub={`Readiness ${pct(derived.readiness)}`}
+            info="Readiness is the exam weighted share of the curriculum you can back with evidence."
+          >
             By topic
           </CardTitle>
           <ul className="divide-y divide-line">
@@ -75,7 +78,7 @@ export function MapView() {
         </Card>
 
         <Card className="lg:col-span-2">
-          <CardTitle sub="Weak modules ranked by exam weight and time since you touched them">Fix these first</CardTitle>
+          <CardTitle info="Weak modules ranked by exam weight and time since you touched them.">Fix these first</CardTitle>
           {derived.weak.length ? (
             <ul className="space-y-3">
               {derived.weak.map((w) => (

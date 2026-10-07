@@ -107,24 +107,26 @@ export function ModuleView({ id }: { id: number }) {
       </Card>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div className="rounded-2xl border border-line bg-surface p-3.5">
-          <div className="text-[12px] text-ink-3">Practice</div>
-          <div className="tabular text-xl font-semibold">{info.acc.rawN ? pct(info.acc.raw / info.acc.rawN) : "–"}</div>
+        <div className="ui-stat rounded-2xl border border-line bg-surface p-3.5">
+          <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">Practice</div>
+          <div className="ui-stat-value tabular text-xl font-semibold">{info.acc.rawN ? pct(info.acc.raw / info.acc.rawN) : "–"}</div>
           <div className="text-[12px] text-ink-3">{info.acc.rawN ? `${info.acc.raw}/${info.acc.rawN} right` : "no questions yet"}</div>
         </div>
-        <div className="rounded-2xl border border-line bg-surface p-3.5">
-          <div className="text-[12px] text-ink-3">Last 4 weeks</div>
-          <div className="tabular text-xl font-semibold">{info.acc28.rawN ? pct(info.acc28.raw / info.acc28.rawN) : "–"}</div>
+        <div className="ui-stat rounded-2xl border border-line bg-surface p-3.5">
+          <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">Last 4 weeks</div>
+          <div className="ui-stat-value tabular text-xl font-semibold">{info.acc28.rawN ? pct(info.acc28.raw / info.acc28.rawN) : "–"}</div>
           <div className="text-[12px] text-ink-3">{plural(info.acc28.rawN, "question")}</div>
         </div>
-        <div className="rounded-2xl border border-line bg-surface p-3.5">
-          <div className="text-[12px] text-ink-3">Time logged</div>
-          <div className="tabular text-xl font-semibold">{fmtHours(minutes / 60)}</div>
+        <div className="ui-stat rounded-2xl border border-line bg-surface p-3.5">
+          <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">Time logged</div>
+          <div className="ui-stat-value tabular text-xl font-semibold">{fmtHours(minutes / 60)}</div>
           <div className="text-[12px] text-ink-3">of a {fmtHours(info.hours)} budget</div>
         </div>
-        <div className="rounded-2xl border border-line bg-surface p-3.5">
-          <div className="text-[12px] text-ink-3">{p.status === "done" ? "Finished" : "Planned"}</div>
-          <div className="tabular text-xl font-semibold">
+        <div className="ui-stat rounded-2xl border border-line bg-surface p-3.5">
+          <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">
+            {p.status === "done" ? "Finished" : "Planned"}
+          </div>
+          <div className="ui-stat-value tabular text-xl font-semibold">
             {p.status === "done" && p.doneAt ? fmtDay(p.doneAt) : sched ? fmtDay(sched.from) : "–"}
           </div>
           <div className="text-[12px] text-ink-3">
@@ -135,7 +137,7 @@ export function ModuleView({ id }: { id: number }) {
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Card>
-          <CardTitle sub="Mastery = 60% practice accuracy + 20% confidence + 20% reviews done">How mastery is built</CardTitle>
+          <CardTitle info="Mastery = 60% practice accuracy + 20% confidence + 20% reviews done.">How mastery is built</CardTitle>
           <ul className="space-y-2 text-sm">
             <li className="flex justify-between">
               <span className="text-ink-2">Practice accuracy, recent questions count more</span>
@@ -189,7 +191,7 @@ export function ModuleView({ id }: { id: number }) {
       </div>
 
       <Card>
-        <CardTitle sub="Formulas, traps, anything you want to remember. The weekly AI run reads these to aim its questions.">
+        <CardTitle info="Formulas, traps, anything you want to remember. The weekly AI run reads these to aim its questions.">
           Notes
         </CardTitle>
         <textarea

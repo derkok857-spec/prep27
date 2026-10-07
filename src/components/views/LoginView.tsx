@@ -12,11 +12,11 @@ const FEATURES = [
   {
     icon: CalendarRange,
     title: "Adaptive plan",
-    text: "Recomputes every day from what you actually finished and how many hours you really have.",
+    text: "Recomputed from your real pace.",
   },
-  { icon: Bug, title: "Mistake bank", text: "Every miss comes back after 3, 7 and 21 days, and the app flags the patterns behind them." },
-  { icon: FlaskConical, title: "Question Lab", text: "A weekly AI run writes and verifies practice questions aimed at your weak spots." },
-  { icon: LayoutGrid, title: "Knowledge map", text: "The whole curriculum sized by exam weight and colored by how well you know it." },
+  { icon: Bug, title: "Mistake bank", text: "Every miss returns until it sticks." },
+  { icon: FlaskConical, title: "Question Lab", text: "Weekly AI questions on your weak spots." },
+  { icon: LayoutGrid, title: "Knowledge map", text: "The whole curriculum, colored by what you know." },
 ];
 
 export function LoginView() {
@@ -58,13 +58,12 @@ export function LoginView() {
       <div>
         <div className="mb-6 flex items-center gap-2.5">
           <Logo className="h-9 w-9" />
-          <span className="text-2xl font-semibold tracking-tight">Prep27</span>
+          <span className="ui-brand text-2xl font-semibold tracking-tight">Prep27</span>
         </div>
-        <h1 className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">A study system for the May 2027 Level I exam.</h1>
-        <p className="mt-3 text-ink-2">
-          Prep27 plans your study, keeps every mistake until you stop making it, writes practice questions aimed at your weak spots and
-          shows what you actually know.
-        </p>
+        <h1 className="ui-hero text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+          A study system for the May 2027 Level I exam.
+        </h1>
+        <p className="mt-3 text-ink-2">Plans the study, keeps every mistake until it stops happening, and shows what you actually know.</p>
         <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {FEATURES.map((f) => (
             <li key={f.title} className="flex gap-3">
@@ -120,7 +119,7 @@ export function LoginView() {
           </div>
         )}
         <div className="mt-6 border-t border-line pt-5">
-          <p className="mb-3 text-sm text-ink-3">Want to look around first? The demo has seven weeks of sample study data.</p>
+          <p className="mb-3 text-sm text-ink-3">Or look around with seven weeks of sample data.</p>
           <Button onClick={openDemo} className="w-full" variant={cloudConfigured ? "secondary" : "primary"}>
             Explore the demo <ArrowRight size={16} aria-hidden />
           </Button>

@@ -157,7 +157,7 @@ export function MistakesView() {
     <div className="space-y-5">
       <PageHeader
         title="Mistake Bank"
-        sub={`Every miss comes back after ${MISTAKE_STEPS.join(", ")} days. Three clean checks in a row and it retires.`}
+        sub={`Every miss returns after ${MISTAKE_STEPS.join(", ")} days until it sticks`}
         action={
           <Button variant="primary" onClick={() => setAdding(true)}>
             Log mistake
@@ -166,27 +166,29 @@ export function MistakesView() {
       />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div className="rounded-2xl border border-line bg-surface p-3.5">
-          <div className="text-[12px] text-ink-3">Open</div>
-          <div className="tabular text-xl font-semibold">{openAll.length}</div>
+        <div className="ui-stat rounded-2xl border border-line bg-surface p-3.5">
+          <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">Open</div>
+          <div className="ui-stat-value tabular text-xl font-semibold">{openAll.length}</div>
         </div>
-        <div className="rounded-2xl border border-line bg-surface p-3.5">
-          <div className="text-[12px] text-ink-3">Due to re-check</div>
-          <div className="tabular text-xl font-semibold">{derived.dueMistakes.length}</div>
+        <div className="ui-stat rounded-2xl border border-line bg-surface p-3.5">
+          <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">Due to re-check</div>
+          <div className="ui-stat-value tabular text-xl font-semibold">{derived.dueMistakes.length}</div>
         </div>
-        <div className="rounded-2xl border border-line bg-surface p-3.5">
-          <div className="text-[12px] text-ink-3">Confident misses, open</div>
-          <div className={cx("tabular text-xl font-semibold", sureOpen >= 3 && "text-bad")}>{sureOpen}</div>
+        <div className="ui-stat rounded-2xl border border-line bg-surface p-3.5">
+          <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">Confident misses, open</div>
+          <div className={cx("ui-stat-value tabular text-xl font-semibold", sureOpen >= 3 && "text-bad")}>{sureOpen}</div>
         </div>
-        <div className="rounded-2xl border border-line bg-surface p-3.5">
-          <div className="text-[12px] text-ink-3">Resolved, 8 weeks</div>
-          <div className="tabular text-xl font-semibold text-good">{br.resolved}</div>
+        <div className="ui-stat rounded-2xl border border-line bg-surface p-3.5">
+          <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">Resolved, 8 weeks</div>
+          <div className="ui-stat-value tabular text-xl font-semibold text-good">{br.resolved}</div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Card>
-          <CardTitle sub="Rules that run on every change to your log">What the log shows</CardTitle>
+          <CardTitle info="Rules that run on every change to your log. Three clean re-checks in a row retire a mistake.">
+            What the log shows
+          </CardTitle>
           {derived.insights.some((i) => MISTAKE_INSIGHTS.test(i.id)) ? (
             <InsightList items={derived.insights.filter((i) => MISTAKE_INSIGHTS.test(i.id))} />
           ) : (
@@ -196,14 +198,14 @@ export function MistakesView() {
           )}
         </Card>
         <Card>
-          <CardTitle sub={batch ? "From the last weekly AI run" : "The weekly AI run looks for deeper causes"}>AI patterns</CardTitle>
+          <CardTitle sub={batch ? "Last weekly run" : undefined}>AI patterns</CardTitle>
           <PatternList batch={batch} knownMistakes={known} />
         </Card>
       </div>
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Card>
-          <CardTitle sub="Open mistakes from the last 8 weeks">By cause</CardTitle>
+          <CardTitle sub="Last 8 weeks">By cause</CardTitle>
           <HBarList
             colorBy="accent"
             format={(v) => String(v)}
@@ -217,7 +219,7 @@ export function MistakesView() {
           />
         </Card>
         <Card>
-          <CardTitle sub="All open mistakes">By topic</CardTitle>
+          <CardTitle>By topic</CardTitle>
           {byTopic.length ? (
             <HBarList
               colorBy="accent"

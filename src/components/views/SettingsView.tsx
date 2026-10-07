@@ -19,7 +19,7 @@ function ExamCard() {
   const windowDays = eachDay(EXAM_WINDOW.start, EXAM_WINDOW.end);
   return (
     <Card>
-      <CardTitle sub="Until you book, keep the first day of the window. Test centers do not all offer every day.">Exam date</CardTitle>
+      <CardTitle info="Until you book, keep the first day of the window. Test centers do not all offer every day.">Exam date</CardTitle>
       <div className="flex flex-wrap items-end gap-3">
         <Field label="Exam day" className="w-48">
           <input
@@ -79,7 +79,9 @@ function StudyCard() {
   };
   return (
     <Card>
-      <CardTitle sub="Weekly hours, mock weeks, topic order and capacity changes live on the Plan page.">Study period and budget</CardTitle>
+      <CardTitle info="Weekly hours, mock weeks, topic order and capacity changes live on the Plan page.">
+        Study period and budget
+      </CardTitle>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="Started studying on" hint="Charts and pace start here">
           <input
@@ -112,7 +114,7 @@ function WorkerCard() {
   const batch = latestBatch(ds.batches);
   return (
     <Card>
-      <CardTitle sub="A scheduled Claude task, once a week. No API keys in the browser and no per call cost.">AI worker</CardTitle>
+      <CardTitle info="A scheduled Claude task, once a week. No API keys in the browser and no per call cost.">AI worker</CardTitle>
       <ol className="list-decimal space-y-1.5 pl-5 text-sm text-ink-2">
         <li>Every Sunday evening it reads a snapshot of your log through a token protected endpoint.</li>
         <li>It looks for recurring causes in your mistakes and weak modules, then writes about 20 questions, your requests first.</li>
@@ -184,7 +186,7 @@ function DataCard() {
 
   return (
     <Card>
-      <CardTitle sub="Your data is yours. Export it any time.">Data</CardTitle>
+      <CardTitle>Data</CardTitle>
       <div className="flex flex-wrap gap-2">
         <Button onClick={() => downloadFile(`prep27-backup-${today}.json`, exportBackup(ds), "application/json")}>
           <Download size={16} aria-hidden /> Backup (JSON)

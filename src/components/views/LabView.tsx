@@ -229,10 +229,7 @@ export function LabView() {
 
   return (
     <div className="space-y-5">
-      <PageHeader
-        title="Question Lab"
-        sub="Every Sunday evening an AI run reads your log, writes questions aimed at your weak spots and verifies each one before it lands here."
-      />
+      <PageHeader title="Question Lab" sub="Written every Sunday for your weak spots, checked before they land" />
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
         <div className="lg:col-span-2">
@@ -246,17 +243,17 @@ export function LabView() {
           ) : null}
         </div>
         <div className="grid grid-cols-3 gap-2 lg:grid-cols-1">
-          <div className="rounded-2xl border border-line bg-surface px-3 py-2.5">
-            <div className="text-[12px] text-ink-3">Waiting</div>
-            <div className="tabular text-xl font-semibold">{derived.waiting.length}</div>
+          <div className="ui-stat rounded-2xl border border-line bg-surface px-3 py-2.5">
+            <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">Waiting</div>
+            <div className="ui-stat-value tabular text-xl font-semibold">{derived.waiting.length}</div>
           </div>
-          <div className="rounded-2xl border border-line bg-surface px-3 py-2.5">
-            <div className="text-[12px] text-ink-3">Answered</div>
-            <div className="tabular text-xl font-semibold">{stats.answered}</div>
+          <div className="ui-stat rounded-2xl border border-line bg-surface px-3 py-2.5">
+            <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">Answered</div>
+            <div className="ui-stat-value tabular text-xl font-semibold">{stats.answered}</div>
           </div>
-          <div className="rounded-2xl border border-line bg-surface px-3 py-2.5">
-            <div className="text-[12px] text-ink-3">First try accuracy</div>
-            <div className="tabular text-xl font-semibold">{stats.answered ? pct(stats.right / stats.answered) : "–"}</div>
+          <div className="ui-stat rounded-2xl border border-line bg-surface px-3 py-2.5">
+            <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">First try accuracy</div>
+            <div className="ui-stat-value tabular text-xl font-semibold">{stats.answered ? pct(stats.right / stats.answered) : "–"}</div>
           </div>
         </div>
       </div>
@@ -343,7 +340,7 @@ export function LabView() {
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Card>
-          <CardTitle sub="The next run serves these first, up to 20 questions each.">
+          <CardTitle info="The next run serves these first, up to 20 questions each.">
             <span className="inline-flex items-center gap-1.5">
               <Sparkles size={16} className="text-accent" aria-hidden /> Ask for questions
             </span>

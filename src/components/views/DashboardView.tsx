@@ -56,7 +56,7 @@ export function DashboardView() {
 
   return (
     <div className="space-y-5">
-      <PageHeader title="Dashboard" sub="Hours, accuracy and readiness from your own log" />
+      <PageHeader title="Dashboard" />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Stat
@@ -88,7 +88,7 @@ export function DashboardView() {
       </div>
 
       <Card>
-        <CardTitle sub="Stacked by activity. The dark tick is the plan for that week.">Hours per week</CardTitle>
+        <CardTitle info="Stacked by activity. The dark tick is the plan for that week.">Hours per week</CardTitle>
         {weeks.some((w) => w.total > 0) ? (
           <>
             <WeeklyHoursChart weeks={weeks} target={(s) => weeklyHoursOn(ds.profile, s).hours} />
@@ -114,11 +114,11 @@ export function DashboardView() {
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Card>
-          <CardTitle sub="Dashed lines at 55% and 65%. Bigger dots mean more questions.">Accuracy by week</CardTitle>
+          <CardTitle info="Dashed lines at 55% and 65%. Bigger dots mean more questions.">Accuracy by week</CardTitle>
           {accWeeks.some((w) => w.n > 0) ? <AccuracyTrendChart data={accWeeks} /> : <Empty>No practice logged yet.</Empty>}
         </Card>
         <Card>
-          <CardTitle sub="Share of exam weight backed by evidence, replayed week by week">Readiness over time</CardTitle>
+          <CardTitle info="Share of exam weight backed by evidence, replayed week by week.">Readiness over time</CardTitle>
           {readinessPts.length > 1 ? (
             <ReadinessChart points={readinessPts} />
           ) : (
@@ -129,7 +129,9 @@ export function DashboardView() {
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Card>
-          <CardTitle sub="Last 8 weeks, logged sets and first Lab answers">Accuracy by topic</CardTitle>
+          <CardTitle sub="Last 8 weeks" info="Logged practice sets and first answers in the Lab.">
+            Accuracy by topic
+          </CardTitle>
           {byTopic.some((t) => t.rawN > 0) ? (
             <HBarList
               rows={byTopic
@@ -151,7 +153,7 @@ export function DashboardView() {
       </div>
 
       <Card id="checks">
-        <CardTitle sub="These rules run on every change to your log">All checks</CardTitle>
+        <CardTitle info="These rules run on every change to your log.">All checks</CardTitle>
         {derived.insights.length ? <InsightList items={derived.insights} /> : <Empty>Nothing to flag right now.</Empty>}
       </Card>
     </div>

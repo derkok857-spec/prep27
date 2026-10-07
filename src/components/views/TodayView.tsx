@@ -43,10 +43,10 @@ export function TodayView() {
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      <div className="ui-pagehead flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-sm font-medium text-ink-3">{fmtWeekday(today)}</p>
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <p className="ui-kicker text-sm font-medium text-ink-3">{fmtWeekday(today)}</p>
+          <h1 className="ui-h1 text-2xl font-semibold tracking-tight">
             {plan.examPassed
               ? "Exam window passed"
               : tp.isReviewDay
@@ -55,7 +55,7 @@ export function TodayView() {
                   ? `Mock phase, week ${week?.mockIndex ?? ""}`
                   : "Today"}
           </h1>
-          <p className="mt-1 text-sm text-ink-3">
+          <p className="ui-h1-sub mt-1 text-sm text-ink-3">
             Week {weekIndex} of {plan.weeks.length} · {plan.daysToExam > 0 ? `${plan.daysToExam} days to the exam` : "exam window reached"}
           </p>
         </div>
@@ -136,7 +136,7 @@ export function TodayView() {
 
           {/* Due now */}
           <Card>
-            <CardTitle sub={dueCount ? "Recall first, then new material. Do them without notes." : undefined}>
+            <CardTitle info={dueCount ? "Recall first, then new material. Do them without notes." : undefined}>
               Due now {dueCount ? <span className="tabular text-ink-3">· {dueCount}</span> : null}
             </CardTitle>
             {dueCount === 0 ? (
@@ -232,7 +232,7 @@ export function TodayView() {
 
           {derived.weak.length ? (
             <Card>
-              <CardTitle sub="Ranked by exam weight, weakness and time since you touched them">Weak spots</CardTitle>
+              <CardTitle info="Ranked by exam weight, weakness and time since you touched them.">Weak spots</CardTitle>
               <ul className="space-y-2.5">
                 {derived.weak.slice(0, 3).map((w) => (
                   <li key={w.moduleId} className="flex items-center gap-3">

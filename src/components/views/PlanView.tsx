@@ -193,7 +193,7 @@ function ScheduleSettings() {
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       <Card>
-        <CardTitle sub="The plan spreads these over Monday to Saturday">Weekly hours and mocks</CardTitle>
+        <CardTitle info="The plan spreads these over Monday to Saturday.">Weekly hours and mocks</CardTitle>
         <div className="flex flex-wrap items-end gap-3">
           <Field label="Hours a week" className="w-32">
             <input
@@ -259,7 +259,7 @@ function ScheduleSettings() {
       </Card>
 
       <Card id="capacity">
-        <CardTitle sub="Exams at university, holidays, an internship. The plan uses these hours on those dates.">
+        <CardTitle info="Exams at university, holidays, an internship. The plan uses these hours on those dates.">
           Capacity changes
         </CardTitle>
         {p.capacityChanges.length ? (
@@ -338,11 +338,13 @@ export function PlanView() {
     <div className="space-y-5">
       <PageHeader
         title="Study plan"
-        sub={`Recomputed from today. Content until ${fmtDay(p.contentEnd)}, mocks from ${fmtDay(p.mockStart)}, exam ${fmtDayYear(ds.profile.examDate)}.`}
+        sub={`Content until ${fmtDay(p.contentEnd)} · mocks from ${fmtDay(p.mockStart)} · exam ${fmtDayYear(ds.profile.examDate)}`}
       />
       <Verdict />
       <Card>
-        <CardTitle sub="Planned hours per week from your first week to the exam">Whole plan</CardTitle>
+        <CardTitle info="Planned hours per week from your first week to the exam. Recomputed every time you log something.">
+          Whole plan
+        </CardTitle>
         <PlanBars weeks={p.weeks} weeklyHours={ds.profile.weeklyHours} />
         <ChartLegend items={PLAN_LEGEND} />
       </Card>

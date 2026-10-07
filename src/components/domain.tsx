@@ -70,31 +70,30 @@ export function topicName(id: number): string {
 }
 
 const SEVERITY_STYLE = {
-  alert: { icon: CircleAlert, cls: "border-bad/30 bg-bad-soft", iconCls: "text-bad" },
-  warn: { icon: TriangleAlert, cls: "border-mid/30 bg-mid-soft", iconCls: "text-mid" },
-  info: { icon: Info, cls: "border-line bg-surface", iconCls: "text-accent" },
+  alert: { icon: CircleAlert, cls: "border-bad", iconCls: "text-bad" },
+  warn: { icon: TriangleAlert, cls: "border-mid", iconCls: "text-mid" },
+  info: { icon: Info, cls: "border-accent", iconCls: "text-accent" },
 } as const;
 
 export function InsightList({ items, limit }: { items: Insight[]; limit?: number }) {
   const list = limit ? items.slice(0, limit) : items;
   if (!list.length) return null;
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-4">
       {list.map((i) => {
         const s = SEVERITY_STYLE[i.severity];
         const Icon = s.icon;
         return (
-          <li key={i.id} className={cx("rounded-xl border p-3", s.cls)}>
-            <div className="flex gap-2.5">
-              <Icon size={18} className={cx("mt-0.5 shrink-0", s.iconCls)} aria-hidden />
+          <li key={i.id} className={cx("border-l-[3px] py-0.5 pl-3.5", s.cls)}>
+            <div className="flex gap-2">
+              <Icon size={16} className={cx("mt-[3px] shrink-0", s.iconCls)} aria-hidden />
               <div className="min-w-0 text-sm">
                 <p className="font-semibold text-ink">{i.title}</p>
-                <p className="mt-0.5 text-ink-2">{i.detail}</p>
-                <p className="mt-1 text-ink">
-                  <span className="font-medium">Do this.</span> {i.action}
-                </p>
-                {i.modules.length || i.href ? (
-                  <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[13px]">
+                <p className="mt-0.5 text-ink-2">{i.action}</p>
+                <details className="group mt-1.5 text-[13px]">
+                  <summary className="flex cursor-pointer list-none flex-wrap items-center gap-x-3 gap-y-1 text-ink-3 [&::-webkit-details-marker]:hidden">
+                    <span className="font-medium text-accent group-open:hidden">Why</span>
+                    <span className="hidden font-medium text-accent group-open:inline">Hide</span>
                     {i.modules.map((m) => (
                       <ModuleLink key={m} id={m} className="text-ink-2" />
                     ))}
@@ -103,8 +102,9 @@ export function InsightList({ items, limit }: { items: Insight[]; limit?: number
                         Open
                       </Link>
                     ) : null}
-                  </div>
-                ) : null}
+                  </summary>
+                  <p className="mt-1 text-ink-2">{i.detail}</p>
+                </details>
               </div>
             </div>
           </li>
@@ -123,8 +123,7 @@ export function CoachNote({ batch, compact = false }: { batch: AiBatch | null; c
   if (!batch) {
     return (
       <div className="rounded-xl border border-dashed border-line-strong p-3 text-sm text-ink-3">
-        The weekly AI run has not written a coach note yet. It reads your log every Sunday evening and leaves a summary, patterns and new
-        questions here.
+        Your first coach note arrives after the Sunday AI run.
       </div>
     );
   }
@@ -149,22 +148,24 @@ export function PatternList({ batch, knownMistakes }: { batch: AiBatch | null; k
     );
   }
   return (
-    <ul className="flex flex-col gap-3">
+    <ul className="flex flex-col gap-4">
       {batch.patterns.map((p, i) => {
         const ev = p.evidence.filter((id) => knownMistakes.has(id)).length;
         return (
-          <li key={i} className="rounded-xl border border-line bg-surface p-3 text-sm">
+          <li key={i} className="border-l-[3px] border-accent py-0.5 pl-3.5 text-sm">
             <p className="font-semibold text-ink">{p.title}</p>
-            <p className="mt-0.5 text-ink-2">{p.detail}</p>
-            <p className="mt-1 text-ink">
-              <span className="font-medium">Do this.</span> {p.action}
-            </p>
-            <div className="mt-1.5 flex flex-wrap gap-x-3 text-[13px] text-ink-3">
-              {p.modules.map((m) => (
-                <ModuleLink key={m} id={m} className="text-ink-2" />
-              ))}
-              <span>{ev === 1 ? "1 mistake as evidence" : `${ev} mistakes as evidence`}</span>
-            </div>
+            <p className="mt-0.5 text-ink-2">{p.action}</p>
+            <details className="group mt-1.5 text-[13px]">
+              <summary className="flex cursor-pointer list-none flex-wrap items-center gap-x-3 gap-y-1 text-ink-3 [&::-webkit-details-marker]:hidden">
+                <span className="font-medium text-accent group-open:hidden">Why</span>
+                <span className="hidden font-medium text-accent group-open:inline">Hide</span>
+                {p.modules.map((m) => (
+                  <ModuleLink key={m} id={m} className="text-ink-2" />
+                ))}
+                <span>{ev === 1 ? "1 mistake as evidence" : `${ev} mistakes`}</span>
+              </summary>
+              <p className="mt-1 text-ink-2">{p.detail}</p>
+            </details>
           </li>
         );
       })}

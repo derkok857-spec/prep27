@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { X } from "lucide-react";
-import { useEffect, useId, useRef, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { Info, X } from "lucide-react";
+import { useEffect, useId, useRef, useState, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { band, type Band } from "@/lib/mastery";
 import { pct } from "@/lib/format";
 
@@ -22,7 +22,7 @@ export function Card({
   id?: string;
 }) {
   const tones = {
-    plain: "bg-surface border-line",
+    plain: "ui-card-plain bg-surface border-line",
     sunken: "bg-sunken border-line",
     accent: "bg-accent-soft border-accent/30",
     good: "bg-good-soft border-good/30",
@@ -30,18 +30,43 @@ export function Card({
     bad: "bg-bad-soft border-bad/30",
   } as const;
   return (
-    <section id={id} className={cx("min-w-0 rounded-2xl border p-4 sm:p-5", tones[tone], className)}>
+    <section id={id} className={cx("ui-card min-w-0 rounded-2xl border p-4 sm:p-5", tones[tone], className)}>
       {children}
     </section>
   );
 }
 
-export function CardTitle({ children, action, sub }: { children: ReactNode; action?: ReactNode; sub?: ReactNode }) {
+/**
+ * Card heading. `sub` is a short line of data that is always shown. `info` is the "how to read this" text,
+ * folded behind a small button so the card stays quiet until you ask.
+ */
+export function CardTitle({ children, action, sub, info }: { children: ReactNode; action?: ReactNode; sub?: ReactNode; info?: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const infoId = useId();
   return (
     <div className="mb-3 flex items-start justify-between gap-3">
       <div className="min-w-0">
-        <h2 className="text-[15px] font-semibold tracking-tight text-ink">{children}</h2>
-        {sub ? <p className="mt-0.5 text-[13px] text-ink-3">{sub}</p> : null}
+        <div className="flex items-center gap-1.5">
+          <h2 className="ui-card-title text-[15px] font-semibold tracking-tight text-ink">{children}</h2>
+          {info ? (
+            <button
+              type="button"
+              onClick={() => setOpen((o) => !o)}
+              aria-expanded={open}
+              aria-controls={infoId}
+              aria-label="How to read this"
+              className={cx("rounded-full p-0.5 transition-colors hover:text-accent", open ? "text-accent" : "text-ink-3")}
+            >
+              <Info size={15} aria-hidden />
+            </button>
+          ) : null}
+        </div>
+        {sub ? <p className="ui-card-sub mt-0.5 text-[13px] text-ink-3">{sub}</p> : null}
+        {info && open ? (
+          <p id={infoId} className="mt-1 max-w-prose text-[13px] text-ink-2">
+            {info}
+          </p>
+        ) : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </div>
@@ -50,10 +75,10 @@ export function CardTitle({ children, action, sub }: { children: ReactNode; acti
 
 export function PageHeader({ title, sub, action }: { title: string; sub?: ReactNode; action?: ReactNode }) {
   return (
-    <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+    <div className="ui-pagehead mb-5 flex flex-wrap items-end justify-between gap-3">
       <div className="min-w-0">
-        <h1 className="text-2xl font-semibold tracking-tight text-ink">{title}</h1>
-        {sub ? <p className="mt-1 text-sm text-ink-3">{sub}</p> : null}
+        <h1 className="ui-h1 text-2xl font-semibold tracking-tight text-ink">{title}</h1>
+        {sub ? <p className="ui-h1-sub mt-1 text-sm text-ink-3">{sub}</p> : null}
       </div>
       {action ? <div className="flex flex-wrap gap-2">{action}</div> : null}
     </div>
@@ -63,9 +88,9 @@ export function PageHeader({ title, sub, action }: { title: string; sub?: ReactN
 type Variant = "primary" | "secondary" | "ghost" | "danger" | "good";
 
 const BUTTON_BASE =
-  "inline-flex items-center justify-center gap-1.5 rounded-xl font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap";
+  "ui-btn inline-flex items-center justify-center gap-1.5 rounded-xl font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap";
 const BUTTON_VARIANT: Record<Variant, string> = {
-  primary: "bg-accent text-on-accent hover:bg-accent-strong",
+  primary: "ui-btn-primary bg-accent text-on-accent hover:bg-accent-strong",
   secondary: "border border-line-strong bg-surface text-ink hover:bg-sunken",
   ghost: "text-ink-2 hover:bg-sunken hover:text-ink",
   danger: "border border-bad/40 bg-bad-soft text-bad hover:border-bad",
@@ -186,10 +211,10 @@ export function ProgressBar({
 export function Stat({ label, value, sub, tone }: { label: string; value: ReactNode; sub?: ReactNode; tone?: "good" | "mid" | "bad" }) {
   const color = tone ? { good: "text-good", mid: "text-mid", bad: "text-bad" }[tone] : "text-ink";
   return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
-      <div className="text-[12px] font-medium uppercase tracking-wide text-ink-3">{label}</div>
-      <div className={cx("tabular mt-1 text-2xl font-semibold tracking-tight", color)}>{value}</div>
-      {sub ? <div className="mt-0.5 text-[13px] text-ink-3">{sub}</div> : null}
+    <div className="ui-stat rounded-2xl border border-line bg-surface p-4">
+      <div className="ui-stat-label text-[12px] font-medium uppercase tracking-wide text-ink-3">{label}</div>
+      <div className={cx("ui-stat-value tabular mt-1 text-2xl font-semibold tracking-tight", color)}>{value}</div>
+      {sub ? <div className="ui-stat-sub mt-0.5 text-[13px] text-ink-3">{sub}</div> : null}
     </div>
   );
 }

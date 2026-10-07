@@ -17,6 +17,7 @@
     "gen:seed": "tsx scripts/gen-seed.ts"
   },
   "dependencies": {
+    "@fontsource-variable/newsreader": "^5.3.0",
     "@supabase/supabase-js": "^2.117.2",
     "geist": "^1.7.2",
     "lucide-react": "^1.52.0",
